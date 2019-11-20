@@ -1,0 +1,43 @@
+demo:
+  name: NamePablo
+  var2: Le doixeme var
+  select_proposal_header: |
+    select p.cod_ppinv proposalId,
+    p.des_ppinv_seq proposalDescription,
+    p.cod_estado_pb basicPlanStatus_id,
+    decode(p.cod_estado_pb,0,'NOT_EXCEEDED',1,'EXCEEDED_NON_BLOCKING',2,'EXCEEDED_BLOCKED') basicPlanStatus_name,
+    c.cod_ref_interna simpleContact_id,
+    c.nb_contacto simpleContact_name,
+    p.cod_creation_date creationDate,
+    p.cod_dia dateOfData,
+    p.comercial isCommercial,
+    decode(p.cod_estado_doc,2,1,0) isDocumentAvailable,
+    decode (d.COD_ESTADO_DOC,2,decode(d.COD_TIPO_DOC,2,0,1),0) isDocumentPOAvailable,
+    decode(p.cod_estado_operativo,1,'false',decode(p.comercial,decode(u.comercial,2,0,u.comercial),'true','false')) isEditable,
+    decode(p.cod_estado_operativo,1,'ALREADY_SENT_TO_T24',decode(p.comercial,decode(u.comercial,2,0,u.comercial),'NOT_APPLICABLE','NOT_MATCHING_COMMERCIAL')) reasonIfIsNotEditable,
+    p.cod_estado_doc estadoDoc,
+    decode(p.id_tipo_ppinv,0,'SOLICITED',1,'UNSOLICITED') solicitation,
+    upper(replace(os.des_estado_operativo_en,' ','_')) operativeStatus,
+    decode(p.cod_origen,0,'360',1,'SAS',2,'ADVISOR',3,'ROBOT','UNKNOWN') source,
+    decode(p.cod_po_validate,1,'PENDING','UNINFORMED') pendingSignature,
+    p.comercial commercialState,
+    p.cod_usuario_micro createdBy,
+    p.cod_usuario_contratacion hiredBy,
+    u.cod_usuario_micro currentUser,
+    c.cod_contacto contacto,
+    c.cod_tipo_contacto tipoContacto
+  from_proposal_header: |
+    from ppinv.t_lk_ppinv p 
+    join bpidwh.t_lk_contacto c on p.cod_contacto = c.cod_contacto and p.cod_tipo_contacto = c.cod_tipo_contacto    
+  join_sf_on_adv_sec_filter: |
+    join t_excepciones e on e.cod_rm = c.cod_advisor 
+  join_sf_on_rm_sec_filter: |
+    join t_excepciones e on e.cod_rm_banquero = c.cod_rm 
+  join_sf_on_user: |
+    join bpidwh.t_lk_usuario_rol on u.cod_usuario_micro = e.user_micro_base and (p.comercial = u.comercial or u.comercial = 2) and (u.centro IN (1, 6) OR (u.centro IN (3) and (c.cod_centro = 3) OR c.cod_doc_visibilidad = 1)) 
+  where_sf: |
+    where e.project = '360' and u.activo = 1 and p.cod_estado_operativo != 4  
+  and_tipo_rol_adv: |
+    and u.cod_tipo_rol in (7) 
+  and_tipo_rol_rm: |
+    and u.cod_tipo_rol in (1, 2, 3, 4, 6, 11, 12, 13, 38) 

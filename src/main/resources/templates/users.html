@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Users</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div th:insert="~{navbar :: navbar}"></div>
+	<div class="container border">
+		<!-- Content here -->
+
+		<h1 th:text="'Hello, ' + ${name} + '!'"></h1>
+		<p><p th:text="'Hello, ' + ${name} + '!'" /></p>
+
+	</div>
+
+</body>
+</html>
