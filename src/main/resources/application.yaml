@@ -1,6 +1,6 @@
 demo:
   name: NamePablo
-  var2: Le doixeme var
+  var2: Le deuxième var
   select_proposal_header: |
     select p.cod_ppinv proposalId,
     p.des_ppinv_seq proposalDescription,
