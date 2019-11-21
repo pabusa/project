@@ -1,0 +1,28 @@
+			<main th:fragment="main-content" role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<div class="btn-group mr-2">
+							<button class="btn btn-sm btn-outline-secondary">Share</button>
+							<button class="btn btn-sm btn-outline-secondary">Export</button>
+						</div>
+						<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+							<span data-feather="calendar"></span> This week
+						</button>
+					</div>
+				</div>
+
+				<h2>Queries</h2>
+				<h3>Advisor:</h3>
+				<code th:text="${queryProposalHeaderForAdv}"></code>
+				<h3>RM:</h3>
+				<code th:text="${queryProposalHeaderForRm}"></code>
+				
+				<h2>YAML variables</h2>
+				<ul>
+				<li>v1: <span th:text="${v1}"></span></li>
+				<li>v2: <span th:text="${v2}"></span></li>
+				<li>v3: <span th:text="${v3}"></span></li>
+				</ul>
+				
+			</main>
