@@ -1,6 +1,8 @@
 demo:
-  name: NamePablo
+  name: Default name
+  var1: Le premier var
   var2: Le deuxième var
+  var3: ${demo.var1} ${demo.var2}
   select_proposal_header: |
     select p.cod_ppinv proposalId,
     p.des_ppinv_seq proposalDescription,

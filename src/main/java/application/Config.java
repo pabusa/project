@@ -16,6 +16,15 @@ public class Config {
 	@Value("${demo.name}")
 	private String name;
 	
+	@Value("${demo.var1}")
+	private String var1;
+	
+	@Value("${demo.var2}")
+	private String var2;
+	
+	@Value("${demo.var3}")
+	private String var3;
+	
 	@Value("${demo.select_proposal_header}")
 	private String selectProposalHeader;
 
